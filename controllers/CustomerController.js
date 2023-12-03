@@ -64,23 +64,26 @@ const saveCustomers=(req,resp)=>{
         }
         console.log(connection.threadId)
 
-      const customers={
+    /*  const customers={
             nic:req.body.nic,
             name:req.body.name,
             address:req.body.address,
             salary:req.body.salary,
       }
-        console.log(customers)
-        connection.query('INSERT INTO customer VALUES(?,?,?,?)',
-            [customers.nic,customers.name,customers.address,customers.salary],(error,result)=>{
-                if(error){
+        console.log(customers)*/
 
+        const {nic,name,address,salary} = req.body;
+        connection.query('INSERT INTO customer VALUES(?,?,?,?)',
+            [nic,name,address ,salary],(error,result)=>{
+                if(error){
                     console.log(error)
                 }else {
+                    resp.render('new-customer-form')
                     console.log(result)
-
                 }
+
             })
+
 
 
     });
