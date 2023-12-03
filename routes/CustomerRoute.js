@@ -4,8 +4,10 @@ const router=express.Router();
 
 const customerController=require('../controllers/CustomerController')
 
-router.use('',customerController.initializeUi)
-router.post('',customerController.findcustomers)
+router.get('',customerController.initializeUi)
+router.post('',customerController.findCustomers)
+router.get('/new-customer-form',customerController.newCustomerForm)
+router.post('/save-customer-form',customerController.saveCustomers)
 
 
 

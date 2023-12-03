@@ -8,7 +8,7 @@ const initializeUi=(req,resp)=>{
         if (error) {
             throw error
         }
-        console.log(connection.threadId)
+       // console.log(connection.threadId)
 
         const selectAllQuery="SELECT * FROM customer";
         connection.query(selectAllQuery,(error,rows)=>{
@@ -19,14 +19,14 @@ const initializeUi=(req,resp)=>{
                 console.log(error)
             }
 
-            console.log(rows)
+          //  console.log(rows)
         });
     });
 
 
 }
 
-const findcustomers=(req,resp)=>{
+const findCustomers=(req,resp)=>{
     connectionPool.getConnection((error, connection) => {
         if (error) {
             throw error
@@ -34,6 +34,7 @@ const findcustomers=(req,resp)=>{
         console.log(connection.threadId)
 
         const searchText=req.body.text
+        console.log(searchText);
 
 
         connection.query('SELECT * FROM customer WHERE name LIKE ? OR address LIKE ?',
@@ -48,11 +49,46 @@ const findcustomers=(req,resp)=>{
             console.log(rows)
         });
     });
+    
 
 
 }
 
+const newCustomerForm=(req,resp)=>{
+    resp.render('new-customer-form')
+}
+const saveCustomers=(req,resp)=>{
+    connectionPool.getConnection((error, connection) => {
+        if (error) {
+            throw error
+        }
+        console.log(connection.threadId)
+
+      const customers={
+            nic:req.body.nic,
+            name:req.body.name,
+            address:req.body.address,
+            salary:req.body.salary,
+      }
+        console.log(customers)
+        connection.query('INSERT INTO customer VALUES(?,?,?,?)',
+            [customers.nic,customers.name,customers.address,customers.salary],(error,result)=>{
+                if(error){
+
+                    console.log(error)
+                }else {
+                    console.log(result)
+
+                }
+            })
+
+
+    });
+
+
+
+}
 module.exports={
-    initializeUi,findcustomers
+    initializeUi,findCustomers,newCustomerForm,saveCustomers
 };
 
