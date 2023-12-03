@@ -4,7 +4,8 @@ const router=express.Router();
 
 const customerController=require('../controllers/CustomerController')
 
-router.use('/',customerController.initializeUi)
+router.use('',customerController.initializeUi)
+router.post('',customerController.findcustomers)
 
 
 
