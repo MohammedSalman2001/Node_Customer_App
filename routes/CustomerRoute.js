@@ -9,6 +9,7 @@ router.post('',customerController.findCustomers)
 router.get('/new-customer-form',customerController.newCustomerForm)
 router.post('/save-customer-form',customerController.saveCustomers)
 router.get('/update-customer-form/:nic',customerController.updateCustomerForm)
+router.get('/delete-customer/:nic',customerController.deleteCustomerForm)
 router.post('/modify-customer-form',customerController.modifyCustomerForm)
 
 

@@ -94,7 +94,6 @@ const saveCustomers=(req,resp)=>{
 
 
 
-
 const updateCustomerForm=(req,resp)=>{
     connectionPool.getConnection((error, connection) => {
         if (error) {
@@ -102,7 +101,10 @@ const updateCustomerForm=(req,resp)=>{
         }
         const nic=req.params.nic;
         console.log(nic)
-        const selectAllQuery="SELECT * FROM customer WHERE nic=?";
+
+
+      
+       const selectAllQuery="SELECT * FROM customer WHERE nic=?";
         connection.query(selectAllQuery,[nic],(error,rows)=>{
             connection.release();
 
@@ -143,10 +145,41 @@ const modifyCustomerForm=(req,resp)=>{
 
 }
 
+const deleteCustomerForm=(req,resp)=>{
+    connectionPool.getConnection((error, connection) => {
+        if (error) {
+            throw error
+        }
+        const nic=req.params.nic;
+        console.log(nic)
+
+        const selectAllQuery="DELETE FROM customer WHERE nic=?";
+        connection.query(selectAllQuery,[nic],(error,rows)=>{
+            connection.release();
+            if(!error){
+                resp.redirect('/')
+
+            }else {
+                console.log(error)
+            }
+
+        });
+    });
+
+}
+
+
 
 
 module.exports={
-    initializeUi,findCustomers,newCustomerForm,saveCustomers,updateCustomerForm,modifyCustomerForm
+    deleteCustomerForm,
+    initializeUi,
+    findCustomers,
+    newCustomerForm,
+    saveCustomers,
+    updateCustomerForm,
+    modifyCustomerForm,
+    
 };
 
 
