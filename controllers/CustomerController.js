@@ -91,7 +91,63 @@ const saveCustomers=(req,resp)=>{
 
 
 }
+
+
+
+
+const updateCustomerForm=(req,resp)=>{
+    connectionPool.getConnection((error, connection) => {
+        if (error) {
+            throw error
+        }
+        const nic=req.params.nic;
+        console.log(nic)
+        const selectAllQuery="SELECT * FROM customer WHERE nic=?";
+        connection.query(selectAllQuery,[nic],(error,rows)=>{
+            connection.release();
+
+            const data=rows[0]
+
+            if(!error){
+                resp.render('update-customer-form',{customer:data})
+
+            }else {
+                console.log(error)
+            }
+
+              console.log(rows[0])
+        });
+    });
+
+}
+
+const modifyCustomerForm=(req,resp)=>{
+    connectionPool.getConnection((error, connection) => {
+        if (error) {
+            throw error
+        }
+        const {nic,name,address,salary} = req.body;
+        const selectAllQuery="UPDATE customer SET name=? , address=? ,salary=? WHERE nic=?";
+        connection.query(selectAllQuery,[name,address,salary,nic],(error,rows)=>{
+            connection.release();
+            if(!error){
+                resp.render('new-customer-form')
+
+            }else {
+                console.log(error)
+            }
+
+            console.log(rows[0])
+        });
+    });
+
+}
+
+
+
 module.exports={
-    initializeUi,findCustomers,newCustomerForm,saveCustomers
+    initializeUi,findCustomers,newCustomerForm,saveCustomers,updateCustomerForm,modifyCustomerForm
 };
+
+
 
