@@ -14,3 +14,6 @@ CREATE TABLE IF NOT EXISTS customer(
 SHOW TABLES;
 
 DESC customer;
+
+INSERT INTO  customer values ('95','KAMAL','colombo',2500);
+INSERT INTO  customer values ('96','Nimal','jayal',2500);

@@ -4,10 +4,7 @@ const router=express.Router();
 
 const customerController=require('../controllers/CustomerController')
 
-router.get('/', (req, res) => {
-    res.render('home')
-})
-
+router.use('/',customerController.initializeUi)
 
 
 
