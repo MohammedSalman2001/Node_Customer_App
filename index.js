@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const mysql = require('mysql');
+
 const expressHandleBars = require('express-handlebars').engine;
 require('dotenv').config();
 
@@ -27,21 +27,7 @@ app.engine('hbs', expressHandleBars({
 app.set('view engine', '.hbs');
 
 
-//create connection pool;
-const connectionPool = mysql.createPool({
-    connectionLimit: 50,
-    host: process.env.DATABASE_HOST,
-    user: process.env.DATABASE_USER,
-    password: process.env.DATABASE_PASSWORD,
-    database: process.env.DB_NAME
-});
 
-connectionPool.getConnection((error, connection) => {
-    if (error) {
-        throw error
-    }
-    console.log(connection)
-})
 
 
 app.use('/',customerRouter)
